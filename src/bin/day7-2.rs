@@ -177,11 +177,13 @@ fn main() {
         child_ids.for_each(|c| stack.push(c.clone()));
     }
 
-    // Sum up all the directory sizes less than 100000
-    let total = sizes
+    let sizeof_root = sizes.get(&vec!["/".to_string()]).unwrap();
+    let needed_space = 30000000 - (70000000 - sizeof_root);
+    // Find the smallest dir larger than needed_space
+    let smallest = sizes
         .iter()
-        .filter(|(_, s)| **s <= 100000)
-        .map(|(_, s)| s)
-        .sum::<usize>();
-    println!("{}", total);
+        .filter(|(_, v)| **v >= needed_space)
+        .min_by_key(|(_, v)| **v)
+        .unwrap();
+    println!("{:?}", smallest);
 }
