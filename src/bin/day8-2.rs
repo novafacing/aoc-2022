@@ -1,7 +1,4 @@
-use std::{
-    collections::HashSet,
-    io::{stdin, Read},
-};
+use std::io::{stdin, Read};
 
 fn main() {
     let mut input = String::new();
